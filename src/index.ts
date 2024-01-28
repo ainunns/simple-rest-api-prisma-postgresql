@@ -20,6 +20,23 @@ app.post("/user", async (req, res) => {
   res.json(result);
 });
 
+app.post("/post", async (req, res) => {
+  const { title, content, authorEmail } = req.body;
+  const result = await prisma.post.create({
+    data: {
+      title,
+      content,
+      published: false,
+      author: {
+        connect: {
+          email: authorEmail,
+        },
+      },
+    },
+  });
+  res.json(result);
+});
+
 app.get("/feed", async (req, res) => {
   const posts = await prisma.post.findMany({
     where: {
