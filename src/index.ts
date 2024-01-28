@@ -69,6 +69,17 @@ app.put("/post/publish/:id", async (req, res) => {
       published: true,
     },
   });
+  res.json(post);
+});
+
+app.delete("/post/:id", async (req, res) => {
+  const { id } = req.params;
+  const post = await prisma.post.delete({
+    where: {
+      id: Number(id),
+    },
+  });
+  res.json(post);
 });
 
 app.listen(3000, () => console.log("Server is running on port 3000"));
