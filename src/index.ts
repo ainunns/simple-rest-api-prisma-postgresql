@@ -11,6 +11,15 @@ app.get("/users", async (req, res) => {
   res.json(users);
 });
 
+app.post("/user", async (req, res) => {
+  const result = await prisma.user.create({
+    data: {
+      ...req.body,
+    },
+  });
+  res.json(result);
+});
+
 app.get("/feed", async (req, res) => {
   const posts = await prisma.post.findMany({
     where: {
