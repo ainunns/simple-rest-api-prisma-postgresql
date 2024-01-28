@@ -11,4 +11,26 @@ app.get("/users", async (req, res) => {
   res.json(users);
 });
 
+app.get("/feed", async (req, res) => {
+  const posts = await prisma.post.findMany({
+    where: {
+      published: true,
+    },
+    include: {
+      author: true,
+    },
+  });
+  res.json(posts);
+});
+
+app.get("/post/:id", async (req, res) => {
+  const { id } = req.params;
+  const post = await prisma.post.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
+  res.json(post);
+});
+
 app.listen(3000, () => console.log("Server is running on port 3000"));
