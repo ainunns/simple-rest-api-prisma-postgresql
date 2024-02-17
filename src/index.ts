@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import env from "./config/LoadEnv";
 import cors from "cors";
 import AuthRouter from "./router/AuthRouter";
+import BlogRouter from "./router/BlogRouter";
 
 const app: Express = express();
 const port = env.PORT || 80;
@@ -15,6 +16,7 @@ app.get("/api", (_: Request, res: Response) => {
 });
 
 app.use("/api/auth", AuthRouter);
+app.use("/api/blog", BlogRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

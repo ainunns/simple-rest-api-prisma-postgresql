@@ -1,7 +1,7 @@
 import db from "../config/ConnectDb";
 
 export const QueryUserByEmail = async (userEmail: string) => {
-  return db.user.findUnique({
+  return db.user.findFirst({
     where: {
       email: userEmail,
     },
